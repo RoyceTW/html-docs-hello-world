@@ -13,10 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Archive project files
+      - name: Prepare build folder
         run: |
+          rm -rf build
           mkdir build
-          cp -r * build/
+          shopt -s extglob
+          cp -r !(build) build/
 
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v3
